@@ -1,0 +1,13 @@
+.navButton {
+    margin: auto;
+    padding: 5px 10px;
+    border-radius: 20px;
+    width: 90px;
+    text-align: center;
+    color: var(--whitish);
+}
+
+.userIcon {
+    border-radius: 40px;
+    margin: auto;
+}

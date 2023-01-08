@@ -1,0 +1,38 @@
+.sideContainer {
+    text-align: center;
+    font-weight: bold;
+    font-size: 32px;
+    color: var(--text-black)
+}
+
+.sideContainer img {
+    border-radius: 400px;
+}
+
+.sideContainer p {
+    margin: 1rem;
+}
+
+.userInfo {
+    font-size: 18px;
+}
+
+.text p {
+    margin: 1rem 0;
+}
+
+.button {
+    padding: .5rem 1.5rem;
+    margin: .5rem 0;
+    border-radius: 40px;
+    background-color: var(--main-gray);
+    color: var(--whitish);
+}
+
+.pub {
+    margin: 0 1rem;
+}
+
+.button:hover {
+    background-color: var(--dusk-purp);
+}

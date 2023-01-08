@@ -1,0 +1,52 @@
+.viewButton {
+    width: 25%;
+    margin: auto;
+    font-size: 20px;
+    border-radius: 50px;;
+}
+
+.viewButton button {
+    width: 50%;
+    border-radius: 50px;
+    padding: .25rem;
+    color: #A5A5A5;
+}
+
+.viewButton .active {
+    background-color: var(--dusk-purp);
+    color: var(--whitish);
+}
+
+/* World */
+
+.post {
+    background-color: var(--dusk-purp);
+    border-radius: 20px;
+    display: flex;
+    padding: .5rem;
+    margin: 1rem;
+}
+
+.post .postContent {
+    background-color: var(--whitish);
+    border-radius: 10px;
+    width: 70%;
+    padding: 1rem;
+    height: 45vh;
+    overflow-y: auto;
+}
+
+.postBar {
+    margin-left: 1.5rem;
+    color: var(--whitish);
+}
+
+.reactionContainer button {
+    border: 1px solid var(--whitish);
+    display: block;
+    border-radius: 5px;
+    padding: .25rem .5rem;
+    margin: .8rem 0;
+    transform: translate(-5px, -5px);
+    box-shadow: 5px 5px 0px var(--whitish);
+}
