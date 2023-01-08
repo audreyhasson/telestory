@@ -7,6 +7,8 @@ import { useSession } from 'next-auth/react';
 import useSWR from 'swr';
 import {useState, useRef, useEffect} from 'react';
 import PostInfo from '../components/postInfo';
+import Link from 'next/link';
+
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -36,16 +38,6 @@ const timeCounter = (time) => {
 
 export default function Home() {
   const { data: session, status } = useSession();
-
-  if (status=='unauthenticated') {
-    return (
-      <Template pageColor="mid-gray">
-        <div className="redirect">
-            <p>You must <a href="/auth">sign in</a> to view this page.</p>
-          </div>
-      </Template>
-    )
-  }
 
   const [challengeStarted, setChallenge] = useState(false);
   const [gotWord1, setGotWord1] = useState(false);
@@ -78,7 +70,7 @@ export default function Home() {
   const id = session?.user._id;
   const postContentRef = useRef();
 
-  const { data: userData, mutate, isValidating } = useSWR('api/getUser?id=' +id, fetcher);
+  const { data: userData, mutate, isValidating } = useSWR((status=='authenticated') ? 'api/getUser?id=' +id : null, fetcher);
   const hasPosted = (userData && userData.document) ? userData.document.currPost!==null : false;
   
   const { data: wordData, isValidating: wordsAreLoading} = useSWR('api/getWords', fetcher);
@@ -128,6 +120,15 @@ export default function Home() {
     console.log('calling submit from button...')
     submitHandler(null);
   }
+  if (status=='unauthenticated') {
+    return (
+      <Template pageColor="mid-gray">
+        <div className="redirect">
+          <p>You must <Link href="/auth">sign in</Link> to view this page.</p>
+          </div>
+      </Template>
+    )
+  }
 
   if (isValidating) {
     return (
@@ -164,12 +165,12 @@ export default function Home() {
                 The first word will be a style or genre, such as “Romance” or “Second Person.” 
                  Your story must fit that style or genre.<br></br>The second and third words
                  are random English language words. These two words MUST be included within 
-                 the text of your story, or else you won’t be able to post it.</p>
+                 the text of your story, or else you won&apos;t be able to post it.</p>
             </div>
           </div>
           <button onClick={startChall} className="bg-dusk-blue text-2xl px-5 py-3 rounded-3xl text-whitish border-dusk-blue border-4
                         hover:italic float-right mx-10 -mt-8">
-            START TODAY'S CHALLENGE</button>
+            START TODAY&apos;S CHALLENGE</button>
           </div>
           }
         {wordsAreLoading && <div>

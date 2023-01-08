@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Template from '../components/template';
 
 
+
 import AuthForm from '../components/auth/auth-form';
 
 function AuthPage() {

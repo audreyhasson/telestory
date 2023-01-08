@@ -4,6 +4,8 @@ import { Inter } from '@next/font/google';
 import styles from '../styles/Home.module.css';
 import Template from '../components/template';
 import {useSession} from 'next-auth/react';
+import Link from 'next/link';
+
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -15,7 +17,7 @@ export default function Home() {
     return (
       <Template pageColor="mid-gray">
         <div className="redirect">
-            <p>You must <a href="/auth">sign in</a> to view this page.</p>
+            <p>You must <Link href="/auth">sign in</Link> to view this page.</p>
           </div>
       </Template>
     )

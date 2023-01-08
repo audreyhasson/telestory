@@ -8,6 +8,7 @@ import FamilyPosts from '../components/familyposts';
 import WorldPosts from '../components/worldposts';
 import {useState} from 'react';
 import useSWR from 'swr';
+import Link from 'next/link';
 
 const inter = Inter({ subsets: ['latin'] })
 const fetcher = (url) => fetch(url).then((res) => res.json())
@@ -16,23 +17,13 @@ export default function Read() {
   const { data: session, status } = useSession();
   const [viewingWorld, setViewingWorld] = useState(false);
 
-  if (status=='unauthenticated') {
-    return (
-      <Template pageColor="mid-gray">
-        <div className="redirect">
-            <p>You must <a href="/auth">sign in</a> to view this page.</p>
-          </div>
-      </Template>
-    )
-  }
-
   const id = session?.user._id;
 
-  const { data: userData, mutate: mutateUser, isValidating: isValUser } = useSWR('api/getUser?id=' +id, fetcher);
+  const { data: userData, mutate: mutateUser, isValidating: isValUser } = useSWR((status=='unauthenticated') ? 'api/getUser?id=' +id : null, fetcher);
 
   const postId = (userData && userData.document) ? userData.document.currPost : null;
 
-  const { data: postData, mutate: mutatePost, isValidating: isValPost } = useSWR('api/getPost?id=' +postId, fetcher);
+  const { data: postData, mutate: mutatePost, isValidating: isValPost } = useSWR((status=='unauthenticated') ? 'api/getPost?id=' +postId : null, fetcher);
 
   function viewFamily() {
     setViewingWorld(false);
@@ -47,7 +38,15 @@ export default function Read() {
   }  
 
 
-
+  if (status=='unauthenticated') {
+    return (
+      <Template pageColor="mid-gray">
+        <div className="redirect">
+            <p>You must <Link href="/auth">sign in</Link> to view this page.</p>
+          </div>
+      </Template>
+    )
+  }
   return (
     <Template pageColor="dusk-purp">
       <Head>

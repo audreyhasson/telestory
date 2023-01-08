@@ -2,13 +2,29 @@ import { Inter } from '@next/font/google'
 import styles from '../styles/account.module.css'
 import { useSession, getSession, signOut } from 'next-auth/react';
 import useSWR from 'swr';
+import type { Session } from "next-auth";
+
 
 const inter = Inter({ subsets: ['latin'] })
-const fetcher = (url) => fetch(url).then((res) => res.json())
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
+
+// type Session = {
+//     user?: {
+//       _id?: string;
+//       username?: string;
+//       dateCreated?: string;
+//       passHash?: string;
+//       postIds?: Array<string>;
+//       currPost?: null | string;
+//       public?: boolean;
+//       family?: Array<string>;
+//       email?: string;
+//     };
+//   };
 
 export default function AccountInfo() {
-    const { data: session, status } = useSession();
-    const id = session?.user._id;
+    const { data: Session, status } = useSession();
+    const id = Session?.user?._id;
 
     const { data, mutate, isValidating } = useSWR('api/getUser?id=' +id, fetcher);
     const isPublic = (data && data.document) ? data.document.public : false;
@@ -22,7 +38,7 @@ export default function AccountInfo() {
     const togglePublic = async (e: any) => {
         console.log('toggled');
         e.preventDefault();
-        const id = session?.user._id;
+        const id = Session?.user._id;
         //Update user
         let newState = await fetch("/api/updateSettings?id=" + id, {
             method: "POST",

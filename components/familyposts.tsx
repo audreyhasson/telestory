@@ -35,10 +35,10 @@ export default function FamilyPosts() {
 
     const { data: session, status } = useSession();
     const [posts, setPosts] = useState([]);
-    const id = session?.user._id;
+    const id = (session && session.user) ? session?.user._id: null;
     const { data: userData, mutate, isValidating } = useSWR('api/getUser?id=' +id, fetcher);
     console.log(userData)
-    const familyIds = userData.document.family;
+    const familyIds = (userData && userData.document) ? userData.document.family: [];
 
     useEffect( () => {
         async function fetchPosts() {

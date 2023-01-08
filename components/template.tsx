@@ -56,9 +56,9 @@ export default function Template( {pageColor, children}) {
         <footer className="mt-auto">
             <div className="bg-main-gray h-24 p-5 text-whitish">
                 <div className="w-1/2">
-                    <p>"If you want to be a writer, you must do two things above all 
-                    others: read a lot and write a lot. There's no way around 
-                    these two things that I'm aware of, no shortcut. " <em> -Stephen King</em></p>
+                    <p>&quot;If you want to be a writer, you must do two things above all 
+                    others: read a lot and write a lot. There&apos;s no way around 
+                    these two things that I&apos;m aware of, no shortcut. &quot; <em> -Stephen King</em></p>
                 </div>
             </div>
         </footer>
