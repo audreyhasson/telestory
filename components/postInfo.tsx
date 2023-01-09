@@ -18,8 +18,6 @@ export default function PostInfo() {
 
     const { data: postData, mutate: mutatePost, isValidating: isValPost } = useSWR('api/getPost?id=' +postId, fetcher);
 
-    console.log(postData);
-
     function countWords(blurb: string) {
         const words = blurb.split(" ");
         return words.length;
@@ -42,6 +40,11 @@ export default function PostInfo() {
                 {!isValPost && <div>
                     <p>TOTAL WORDS: <span>{countWords(postData.document.text).toString()}</span></p>
                     <p>WPM: <span>{Math.floor(countWords(postData.document.text)/3).toString()}</span></p>
+                    {!postData.document.postSucess && 
+                        <p>You did not include today's words in your post. Sad! We're sure you tried! Unfortunately,
+                            due to this, your post is not visible to others today.
+                        </p>
+                        }
                 </div>
                 }
             </div>
