@@ -43,7 +43,7 @@ export default function Home() {
   const [gotWord1, setGotWord1] = useState(false);
   const [gotWord2, setGotWord2] = useState(false);
 
-  const [timeLeft, setTimeLeft] = useState(10);
+  const [timeLeft, setTimeLeft] = useState(180);
   const [isCounting, setIsCounting] = useState(false);
   const intervalRef = useRef(null);
 

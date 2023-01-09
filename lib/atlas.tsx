@@ -41,6 +41,9 @@ export async function getWords() {
       "dataSource": "Cluster0",
       "database": "starterData",
       "collection": "dailyWords",
+      "filter": {
+        "_id": {"$oid": "63b70d557a635ce0a627113f"},
+      }
     })
   });
   return await response.json()
