@@ -6,7 +6,7 @@ import {useSession} from 'next-auth/react';
 import Template from '../components/template';
 import FamilyPosts from '../components/familyposts';
 import WorldPosts from '../components/worldposts';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import useSWR from 'swr';
 import Link from 'next/link';
 
@@ -19,11 +19,12 @@ export default function Read() {
 
   const id = session?.user._id;
 
-  const { data: userData, mutate: mutateUser, isValidating: isValUser } = useSWR((status=='unauthenticated') ? 'api/getUser?id=' +id : null, fetcher);
+  const { data: userData, mutate: mutateUser, isValidating: isValUser } = useSWR((status=='authenticated') ? 'api/getUser?id=' +id : null, fetcher);
 
   const postId = (userData && userData.document) ? userData.document.currPost : null;
 
-  const { data: postData, mutate: mutatePost, isValidating: isValPost } = useSWR((status=='unauthenticated') ? 'api/getPost?id=' +postId : null, fetcher);
+  console.log(postId)
+  //const { data: postData, mutate: mutatePost, isValidating: isValPost } = useSWR((status=='unauthenticated') ? 'api/getPost?id=' +postId : null, fetcher);
 
   function viewFamily() {
     setViewingWorld(false);
@@ -37,12 +38,21 @@ export default function Read() {
     console.log(e.target.parentNode.id);
   }  
 
-
   if (status=='unauthenticated') {
     return (
       <Template pageColor="mid-gray">
         <div className="redirect">
             <p>You must <Link href="/auth">sign in</Link> to view this page.</p>
+          </div>
+      </Template>
+    )
+  }
+
+  if (postId===null) {
+    return (
+      <Template pageColor="mid-gray">
+        <div className="redirect">
+            <p>Nothing to see here! You have to <Link href="/">complete today&apos;s challenge</Link> before you can read other posts.</p>
           </div>
       </Template>
     )

@@ -71,7 +71,7 @@ export default function AccountInfo() {
             <button onClick={togglePublic} className={styles.button + " " + styles.pub}>{isPublic ? 'GO PRIVATE' : 'GO PUBLIC'}</button>
         </div>
         <div  className={styles.text}>
-        <p>View all posts</p>
+        <p>View all posts (Button not active yet)</p>
         <p>You have been a user for {daysAlive} days!</p>
         <button onClick={logoutHandler} className={styles.button}>Logout</button>
         </div>

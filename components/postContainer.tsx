@@ -62,7 +62,7 @@ export default function PostContainer({postArray}) {
         
         posts.push(
             <tr>
-                <td>{postHTML1}</td>
+                <td className="w-1/2">{postHTML1}</td>
                 <td>{postHTML2}</td>
             </tr>
         )
@@ -76,7 +76,7 @@ export default function PostContainer({postArray}) {
         const postHTML = getPostHTML(content, id, username)
         posts.push(
             <tr>
-                <td>{postHTML}</td>
+                <td className="w-1/2">{postHTML}</td>
             </tr>
         )
     }

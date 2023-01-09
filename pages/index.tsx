@@ -39,6 +39,8 @@ const timeCounter = (time) => {
 export default function Home() {
   const { data: session, status } = useSession();
 
+  console.log(session, status)
+  
   const [challengeStarted, setChallenge] = useState(false);
   const [gotWord1, setGotWord1] = useState(false);
   const [gotWord2, setGotWord2] = useState(false);
@@ -67,7 +69,7 @@ export default function Home() {
   const minutes = timeCounter(Math.floor(timeLeft / 60));
   const seconds = timeCounter(timeLeft - minutes * 60);
 
-  const id = session?.user._id;
+  const id = (session && session.user)? session?.user._id: null;
   const postContentRef = useRef();
 
   const { data: userData, mutate, isValidating } = useSWR((status=='authenticated') ? 'api/getUser?id=' +id : null, fetcher);
@@ -102,7 +104,11 @@ export default function Home() {
     // Create a new post with content and success var set to (got1 and got2) 
     const publicity = userData.document.public;
     const postContent = postContentRef.current.value;
-    const res = submitPost(session?.user._id, session?.user.username, postContent, gotWord1&&gotWord2, publicity)
+    //const wordsSoFar = postContentRef.current.value;
+    const wordsToCompare = postContent.toLowerCase();
+    const word1success = wordsToCompare.includes(word1);
+    const word2success = wordsToCompare.includes(word2);
+    const res = submitPost(session?.user._id, session?.user.username, postContent, word1success&&word2success, publicity)
     
 
     // Set user curr post to the post id
