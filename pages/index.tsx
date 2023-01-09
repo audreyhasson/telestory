@@ -130,7 +130,7 @@ export default function Home() {
     )
   }
 
-  if (isValidating) {
+  if (isValidating || status==='loading') {
     return (
       <Template pageColor="dusk-blue">
         <Head>
@@ -139,7 +139,7 @@ export default function Home() {
         <link rel="icon" href="/images/favicon.png" />
       </Head>
       <div className="main-container">
-        <p>Loading</p>
+        <p>Loading...</p>
       </div>
       </Template>
       
