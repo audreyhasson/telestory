@@ -41,7 +41,7 @@ export default function PostInfo() {
                     <p>TOTAL WORDS: <span>{countWords(postData.document.text).toString()}</span></p>
                     <p>WPM: <span>{Math.floor(countWords(postData.document.text)/3).toString()}</span></p>
                     {!postData.document.postSucess && 
-                        <p>You did not include today's words in your post. Sad! We're sure you tried! Unfortunately,
+                        <p>You did not include today&apos;s words in your post. Sad! We&apos;re sure you tried! Unfortunately,
                             due to this, your post is not visible to others today.
                         </p>
                         }
