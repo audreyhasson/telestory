@@ -1,20 +1,22 @@
 import { connectToDatabase } from '../../lib/db';
 import { ObjectId } from "mongodb";
-import moment from 'moment';
+
+function getOIDs(ids) { 
+    let oids = [];
+    for (let i=0; i<ids.length;i++) {
+        oids.push(new ObjectId(ids[i]));
+    }
+    return oids;
+}
 
 async function handler(req, res) {
-    const start = new Date();
-    start.setHours(0,0,0,0);
     const client = await connectToDatabase();
     const db = client.db("starterData");
     const {familyIds} = req.body;
+    const familyOIDS = getOIDs(familyIds)
 
-    const result = await db.collection('posts').find({
-        authorID: {$in: familyIds},
-        date: {
-            $gte: start,
-        },
-        postSucess: true,
+    const result = await db.collection('users').find({
+        _id: {$in: familyOIDS},
     }).toArray();
 
     res.status(201).json(result);

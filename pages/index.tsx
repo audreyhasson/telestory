@@ -12,12 +12,12 @@ import Link from 'next/link';
 
 
 const inter = Inter({ subsets: ['latin'] })
-const fetcher = (url) => fetch(url).then((res) => res.json())
+const fetcher = (url : string) => fetch(url).then((res) => res.json())
 
-async function submitPost(authorId, username, content, success, publicity) {
+async function submitPost(authorId: string, username: string, content: string, success: boolean, publicity: boolean, words: string[]) {
   const response = await fetch('/api/post', {
     method: 'POST',
-    body: JSON.stringify({ authorId, username, content, success, publicity }),
+    body: JSON.stringify({ authorId, username, content, success, publicity, words }),
     headers: {
       'Content-Type': 'application/json',
     },
@@ -108,7 +108,8 @@ export default function Home() {
     const wordsToCompare = postContent.toLowerCase();
     const word1success = wordsToCompare.includes(word1);
     const word2success = wordsToCompare.includes(word2);
-    const res = submitPost(session?.user._id, session?.user.username, postContent, word1success&&word2success, publicity)
+    const words = [wordData.document.genre, word1, word2]
+    const res = submitPost(session?.user._id, session?.user.username, postContent, word1success&&word2success, publicity, words)
     
 
     // Set user curr post to the post id
@@ -159,13 +160,13 @@ export default function Home() {
         <link rel="icon" href="/images/favicon.png" />
       </Head>
       <div className="main-container">
-        {!hasPosted && !challengeStarted && <div><div className="bg-baby-blue border-8 border-dusk-blue flex rounded-2xl">
-            <div className="w-1/3 my-auto mx-10 font-bold text-dusk-blue text-5xl">
-              <h1 className="mb-4">3 words.</h1>
+        {!hasPosted && !challengeStarted && <div><div className="bg-baby-blue border-8 p-4 md:p-0 border-dusk-blue block md:flex rounded-t-lg md:rounded-2xl">
+            <div className="w-full md:w-1/3 mb-2 md:my-auto md:mx-10 font-bold text-dusk-blue text-2xl md:text-5xl">
+              <h1 className="mb-2 md:mb-4">3 words.</h1>
               <h1>3 minutes.</h1>
             </div>
-            <div className={styles.vertLine}></div>
-            <div className="m-8">
+            <div className={styles.vertLine + " hidden md:block"}></div>
+            <div className="md:m-8">
               <h2 className="font-bold">Instructions:</h2>
               <p>You have 3 minutes to write a VERY short story, based on 3 words. 
                 The first word will be a style or genre, such as “Romance” or “Second Person.” 
@@ -174,8 +175,8 @@ export default function Home() {
                  the text of your story, or else you won&apos;t be able to post it.</p>
             </div>
           </div>
-          <button onClick={startChall} className="bg-dusk-blue text-2xl px-5 py-3 rounded-3xl text-whitish border-dusk-blue border-4
-                        hover:italic float-right mx-10 -mt-8">
+          <button onClick={startChall} className="bg-dusk-blue text-2xl px-5 py-3 rounded-b-lg md:rounded-3xl text-whitish border-dusk-blue border-4
+                        hover:italic w-full md:w-auto md:float-right md:mx-10 md:-mt-8 -mt-1">
             START TODAY&apos;S CHALLENGE</button>
           </div>
           }
@@ -185,21 +186,36 @@ export default function Home() {
         }
         {!hasPosted && challengeStarted && <div>
             <form>
-              <div className="flex h-[65vh]">
-              <textarea onKeyUp={handleKeyDown} type='text' id='post' required ref={postContentRef} className="w-2/3 border-text-black bg-whitish rounded-xl px-4 py-2 border-4 h-full resize-none" ></textarea>
-              <div className="mx-8 flex-col content-around h-full">
-                <div>
-                  <h2 className="font-bold text-dusk-blue">STYLE/GENRE:</h2>
-                  <p className=" py-2 capitalize text-4xl text-dusk-blue ml-2 font-bold">{wordData.document.genre}</p>
+              <div className="md:flex h-[65vh]">
+              <textarea onKeyUp={handleKeyDown} type='text' id='post' required ref={postContentRef} className="hidden md:block w-2/3 focus-visible:outline-none border-text-black bg-whitish rounded-xl px-4 py-2 border-4 h-full resize-none" ></textarea>
+              <div className="md:mx-8 md:flex-col content-around md:h-full">
+                <div className="flex justify-between items-center w-full md:hidden">
+                  <p className={seconds<31&&minutes<1 ? "text-red text-2xl font-bold" : "text-main-gray text-2xl font-bold"}>{minutes}:{seconds}</p>
+                  {gotWord1 && gotWord2 &&
+                  <button onClick={selfSubmit} className={"rounded-xl p-2 text-whitish text-xl bg-dusk-blue"}>POST NOW</button>
+                  }
+                </div>
+                <div className="my-1 md:my-0">
+                  <div className="md:block flex">
+                    <h2 className="font-bold text-dusk-blue">STYLE/GENRE:</h2>
+                    <p className="md:py-2 capitalize md:text-4xl text-dusk-blue ml-2 font-bold">{wordData.document.genre}</p>
+                  </div>
+                  <div className="md:block flex">
                   <h2 className="font-bold text-dusk-blue">MUST INCLUDE:</h2>
-                  <p className={gotWord1 ? "line-through py-2 capitalize text-4xl text-dusk-blue ml-2 font-bold " : "py-2 capitalize text-4xl text-dusk-blue ml-2 font-bold "}>{word1}</p>
-                  <p className={gotWord2 ? "line-through py-2 capitalize text-4xl text-dusk-blue ml-2 font-bold " : "py-2 capitalize text-4xl text-dusk-blue ml-2 font-bold "}>{word2}</p>
+                  <div className="md:block flex">
+                    <p className={gotWord1 ? "line-through md:py-2 capitalize md:text-4xl text-dusk-blue ml-2 font-bold " : "md:py-2 capitalize md:text-4xl text-dusk-blue ml-2 font-bold "}>{word1}</p>
+                    <p className={gotWord2 ? "line-through md:py-2 capitalize md:text-4xl text-dusk-blue ml-2 font-bold " : "md:py-2 capitalize md:text-4xl text-dusk-blue ml-2 font-bold "}>{word2}</p>
+                  </div>
+                  </div>
                 </div>
-                <p className={seconds<31&&minutes<1 ? "text-red text-6xl font-bold my-6" : "text-dusk-blue text-6xl my-6 font-bold"}>{minutes}:{seconds}</p>
-                {gotWord1 && gotWord2 &&
-                <button onClick={selfSubmit} className={"bottom-0 my-3 p-4 rounded-xl text-whitish text-xl bg-dusk-blue"}>POST NOW</button>
-                }
+                <div className="hidden md:block">
+                  <p className={seconds<31&&minutes<1 ? "text-red text-6xl font-bold my-6" : "text-dusk-blue text-6xl my-6 font-bold"}>{minutes}:{seconds}</p>
+                  {gotWord1 && gotWord2 &&
+                  <button onClick={selfSubmit} className={"bottom-0 my-3 p-4 rounded-xl text-whitish text-xl bg-dusk-blue"}>POST NOW</button>
+                  }
                 </div>
+                </div>
+                <textarea onKeyUp={handleKeyDown} type='text' id='post' required ref={postContentRef} className="md:hidden w-full focus-visible:outline-none border-text-black bg-whitish rounded-xl px-4 py-2 border-4 h-full resize-none" ></textarea>
               </div>
             </form>
           </div>}

@@ -7,7 +7,7 @@ async function handler(req, res) {
 
   const data = req.body;
 
-  const { authorId, username, content, success, publicity } = data;
+  const { authorId, username, content, success, publicity, words } = data;
 
   const client = await connectToDatabase();
 
@@ -27,6 +27,7 @@ async function handler(req, res) {
     author: username,
     postSucess: success,
     public: publicity,
+    words: words,
   });
 
   res.status(201).json(result);

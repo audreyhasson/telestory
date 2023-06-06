@@ -113,3 +113,46 @@ export async function updateSettings(id) {
   })
   return await response.json();
 }
+
+export async function getIncomingInvites(id) {
+  const response = await fetch(`${dataUrl}/action/find`, {
+    method: 'POST',
+    headers: {
+      'Access-Control-Request-Headers': '*',
+      'api-key': dataKey,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "dataSource": "Cluster0",
+      "database": "starterData",
+      "collection": "invites",
+      "filter": {
+        "to": id,
+      },
+    })
+  })
+  return await response.json();
+}
+
+export async function getOutgoingInvites(id) {
+  const response = await fetch(`${dataUrl}/action/find`, {
+    method: 'POST',
+    headers: {
+      'Access-Control-Request-Headers': '*',
+      'api-key': dataKey,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "dataSource": "Cluster0",
+      "database": "starterData",
+      "collection": "invites",
+      "filter": {
+        "from": id,
+      },
+    })
+  })
+  return await response.json();
+}
+
+// me: 63bc85027790ed6a464a86e1
+// cc: 63bcddef954a43e48c00f8b8

@@ -1,0 +1,154 @@
+
+.table {
+    width: 100%;
+    height: 100%;
+    margin-top: -30px;
+    position: relative;
+}
+
+.table td {
+    vertical-align: top;
+    padding-top: 3.5rem;
+}
+
+.table input {
+    font-size: 20px;
+    width: 40vw;
+    background-color:var(--whitish);
+}
+
+.rightContainer {
+    margin-right: 20rem;
+}
+
+.table img {
+    padding-right: .5rem;
+}
+
+.table button {
+    font-size: 24px;
+}
+ 
+.searchContainer {
+    display: flex;
+    background-color: var(--whitish);
+    border-radius: 20px;
+    margin-left: 3rem;
+    padding: .5rem 1rem;
+}
+
+.searchResults {
+    padding: 1rem 2rem;
+}
+
+.searchResults button {
+    background-color: var(--dusk-purp);
+    color: var(--whitish);
+    padding: .5rem 1rem;
+    border-radius: 10px;
+    margin: .5rem;
+}
+
+
+
+.userContainer {
+    padding: 0 2rem;
+}
+
+.userContainer img {
+    border-radius: 100px;
+    padding: 0;
+    margin-right: 3rem;
+}
+
+.backButton {
+    margin-top: 3rem;
+}
+
+.userContent  .removeButton {
+    background-color: var(--red);
+}
+
+.userContent button {
+    color: var(--whitish);
+    background-color: var(--main-gray);
+    border-radius: 15px;
+    padding: .5rem 1rem;
+    margin-top: 3rem;
+}
+
+.table input:focus-visible {
+    border-width: 0px;
+    box-sizing: none;
+    outline: none;
+}
+
+
+.sidebar {
+    width: 20%;
+    background-color: #D9D9D9;
+    font-size: 24px;
+    position: sticky;
+    height: calc(100vh - 3.5rem - 6rem); /* hardcoded based on footer and header */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.sidebar p {
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+.userButton {
+    text-align: left;
+    margin-right: 1rem;
+    background-color: var(--mid-gray);
+    width: 98%;
+    height: 3rem;
+    margin-bottom: .25rem;
+    border-radius: 0 12px 12px 0;
+    padding-left: .25rem;
+    display: flex;
+    align-items: center;
+}
+
+.modal {
+    background-color: var(--main-gray);
+    position: fixed;
+    margin: auto;
+    height: 40vh;
+    width: 50vw;
+    z-index: 10;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    padding: 1.5rem 2rem;
+    border-radius: 20px;
+    color: var(--whitish);
+    box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.4);
+}
+
+.mTitle {
+    justify-content: space-between;
+    font-size: 24px;
+    margin-bottom: 1rem;
+}
+
+.invitation {
+    display: flex;
+    justify-content: space-between;
+    background-color:#D9D9D9;
+    color: var(--text-black);
+    padding: .5rem .75rem;
+    border-radius: 10px;
+    font-size: 20px;
+    margin-bottom: .4rem;
+}
+
+.invitation img {
+    margin-right: .3rem;
+}
+
+.invitation button {
+    margin: 0 .5rem;
+}

@@ -11,3 +11,28 @@
     border-radius: 40px;
     margin: auto;
 }
+
+.logo {
+    position: relative;
+    z-index: 5;
+}
+
+.logoFont {
+    font-family: 'Rubik Mono One', sans-serif;
+    color: var(--whitish);
+    font-size: 32px;
+}
+
+.mobileHeader {
+    display: flex;
+    position: fixed;
+    top: 8px;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.mobileHeader img {
+    background-color: var(--mid-gray);
+    border-radius: 40px;
+}

@@ -1,0 +1,20 @@
+import NextAuth from "next-auth"
+
+declare module "next-auth" {
+  /**
+   * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
+   */
+  interface Session {
+    user: {
+        _id: string;
+        username: string;
+        dateCreated: string;
+        passHash: string;
+        postIds: array;
+        currPost: null | string;
+        public: boolean;
+        family: array;
+        email: string;
+      };
+  }
+}
